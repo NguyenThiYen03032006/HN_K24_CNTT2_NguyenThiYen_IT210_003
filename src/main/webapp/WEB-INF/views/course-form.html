@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>.error { color: red; font-size: 0.9rem; }</style>
+</head>
+<body>
+<div class="container mt-4">
+
+    <h4 th:text="${course.id == null ? 'Thêm mới khóa học' : 'Cập nhật khóa học'}"></h4>
+
+    <form th:action="@{/courses/save}" th:object="${course}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label class="form-label">Tên khóa học</label>
+            <input type="text" th:field="*{courseName}" class="form-control">
+            <div class="error" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Giảng viên</label>
+            <input type="text" th:field="*{instructor}" class="form-control">
+            <div class="error" th:if="${#fields.hasErrors('instructor')}" th:errors="*{instructor}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Thời lượng</label>
+            <input type="number" step="0.5" th:field="*{duration}" class="form-control">
+            <div class="error" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ảnh</label>
+            <input type="file" name="imageFile" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a th:href="@{/courses}" class="btn btn-secondary">Hủy</a>
+
+    </form>
+</div>
+</body>
+</html>
